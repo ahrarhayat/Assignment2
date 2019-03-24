@@ -1,15 +1,9 @@
 #BlueJ class context
 comment0.target=WordLengths
-comment1.params=
-comment1.target=java.lang.String[]\ getCommon()
-comment2.params=list\ word
-comment2.target=int\ indexOf(java.lang.String[],\ java.lang.String)
-comment3.params=resource\ common\ counts
-comment3.target=void\ countWords(edu.duke.FileResource,\ java.lang.String[],\ int[])
-comment4.params=
-comment4.target=void\ countShakespeare()
-comment5.params=source\ counts
-comment5.target=void\ countWordLengths(edu.duke.FileResource,\ int[])
-comment6.params=
-comment6.target=void\ testCountWordsLength()
-numComments=7
+comment1.params=source\ counts
+comment1.target=void\ countWordLengths(edu.duke.FileResource,\ int[])
+comment2.params=values
+comment2.target=int\ indexOfMax(int[])
+comment3.params=
+comment3.target=void\ testCountWordsLengths()
+numComments=4
