@@ -53,45 +53,92 @@ public class caeserBreaker {
      return cc.encrypt(encrypted,26-dkey);
  }
  
- public String StringBreaker(String encrypted)
+ public String StringBreakerForEven(String encrypted)
  {
-     caeserCipher cc = new caeserCipher();
-     System.out.println(encrypted);
-     encrypted=cc.encryptTwoKeys(encrypted,17,21);
-     StringBuilder odd = new StringBuilder();
+   
      StringBuilder even = new StringBuilder();
+     String  noSpace="";
      for(int i=0;i<encrypted.length();i++)
      {
-         char currChar= encrypted.charAt(i);
+         char currChar=encrypted.charAt(i);
+         
+         if(Character.isLetter(currChar))
+         {
+             if(noSpace.equals(""))
+             {
+             noSpace=Character.toString(currChar);
+         }
+         else
+         { noSpace=noSpace+Character.toString(currChar);
+             
+         }
+        }
+     }
+ 
+     for(int i=0;i<noSpace.length();i++)
+     {
+         char currChar= noSpace.charAt(i);
          if(i%2==0 && Character.isLetter(currChar))
          {
-             even.append(encrypted.charAt(i));
+             even.append(noSpace.charAt(i));
          }
+        
+     }
+     
+    
+     return even.toString();
+ }
+ 
+  public String StringBreakerForOdd(String encrypted)
+ {
+     
+     StringBuilder odd = new StringBuilder();
+     String  noSpace="";
+     for(int i=0;i<encrypted.length();i++)
+     {
+         char currChar=encrypted.charAt(i);
+         
+         if(Character.isLetter(currChar))
+         {
+             if(noSpace.equals(""))
+             {
+             noSpace=Character.toString(currChar);
+         }
+         else
+         { noSpace=noSpace+Character.toString(currChar);
+             
+         }
+        }
+     }
+     for(int i=0;i<noSpace.length();i++)
+     {
+         char currChar= noSpace.charAt(i);
          if(i%2!=0 && Character.isLetter(currChar))
          {
-             odd.append(encrypted.charAt(i));
+             odd.append(noSpace.charAt(i));
          }
      }
-     System.out.println(encrypted);
-     System.out.println(even.toString());
-     System.out.println(odd.toString());
-     return even.toString();
+     
+     return odd.toString();
  }
  
  public void TestStringBreaker()
  {
      FileResource fr = new FileResource();
      String message =fr.asString();
-     StringBreaker(message);
+     StringBreakerForEven(message);
+     StringBreakerForOdd(message);
+     
  }
  
  public String decryptTwoKeys(String encrypted)
  {
      caeserCipher cc = new caeserCipher();
      //separate the encrypted string into two parts
-
-     int [] freqsEven=countLetters(StringBreaker(encrypted));
-     int [] freqsOdd=countLetters(StringBreaker(encrypted));
+     
+     System.out.println("Encrypted message: "+encrypted);
+     int [] freqsEven=countLetters(StringBreakerForEven(encrypted));
+     int [] freqsOdd=countLetters(StringBreakerForOdd(encrypted));
      int maxDexEven=indexOfMax(freqsEven);
      int maxDexOdd=indexOfMax(freqsOdd);
      
@@ -100,22 +147,24 @@ public class caeserBreaker {
      if(maxDexEven<4)
      {
         dkey1=26-(4-maxDexEven); 
+        
      }
+     System.out.println("dkey1: "+dkey1);
      int dkey2=maxDexOdd-4;
      if(maxDexOdd<4)
      {
         dkey2=26-(4-maxDexOdd); 
      }
+     System.out.println("dkey2: "+dkey2);
      return cc.encryptTwoKeys(encrypted,26-dkey1,26-dkey2);
  }
   
  public void testDecrypt()
  {
-     caeserCipher cc = new caeserCipher();
      FileResource fr = new FileResource();
      String message =fr.asString();
-     String encrypted=cc.encryptTwoKeys(message,17,21);
-     System.out.println(encrypted);
-     System.out.println(decryptTwoKeys(message));
+     System.out.println("Original message: " +message);
+     System.out.println("Decrypted message: "+decryptTwoKeys(message));
+     
  }
 }

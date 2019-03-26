@@ -38,9 +38,8 @@ public String encrypt(String input,int key)
     }
     public void testCaeser()
     {
-        int key=15;
-        FileResource fr = new FileResource();
-        String message = fr.asString();
+        int key=4;
+        String message = "Akag tjw Xibhr awoa aoee xakex znxag xwko";
         String encrypted = encrypt(message, key);
         System.out.println("key is " + key + "\n" + encrypted);
     }
@@ -92,11 +91,13 @@ public String encrypt(String input,int key)
     }
     public void testEncryptTwoKeys()
     {
-        int key1=8;
-        int key2=21;
+        int key1=9;
+        int key2=22;
         FileResource fr = new FileResource();
         String message = fr.asString();
         String result= encryptTwoKeys(message,key1,key2);
+        String decrypt=encryptTwoKeys(message,26-key1,26-key2);
         System.out.println(result);
+        System.out.println(decrypt);
 }
 }
