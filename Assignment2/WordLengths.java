@@ -16,30 +16,45 @@ public class WordLengths {
 	    //Store all the words in an array
             //Start counting word Lengths
             int k=1;
-            for(String word: source.words())
-            {
-                          word = word.toLowerCase();
-			  System.out.println(word);
-			
-			  counts[word.length()]+=1;
-			   if(words[word.length()]==null)
+            int x=0;
+            int length=0;
+            for(String word: source.words()){
+                        
+            {          for(x=0;x<word.length();x++){
+			  char currChar=word.charAt(x);
+			  if(Character.isLetter(currChar)==true && currChar!=','&&currChar!='.')
+			  {
+			      length=length+1;
+			  }
+			  
+			 }
+			  counts[length]+=1;
+			   if(words[length]==null)
 			    {
-			        words[word.length()]= word;
+			        words[length]= word;
 			        
 			    }
 			     else 
 			     {
-			         words[word.length()]= words[word.length()]+" "+word;
+			         words[length]= words[length]+" "+word;
 			         
 			     }
-			   
+			   length=0;
 			}
-
+}
             //print the results
             for(int i=1; i < counts.length; i++){
+                if(words[i]!=null){
+                    if(counts[i]>1)
+                    {
 	        System.out.println(counts[i]+" words of length "+i+" : "+words[i]);
 		}
-            
+		else
+		{
+		 System.out.println(counts[i]+" word of length "+i+" : "+words[i]);
+		  }
+}
+}
 	}
 	public int indexOfMax(int [] values )
 	{ int i=1;
@@ -60,7 +75,7 @@ public class WordLengths {
 	    FileResource fr= new FileResource();
 	    int counts[]=new int[31];
 	    countWordLengths(fr, counts);
-	    System.out.println(indexOfMax(counts));
+	    System.out.println("The maximum of words are of length "+indexOfMax(counts));
 	}
 	
 	
