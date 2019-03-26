@@ -53,46 +53,48 @@ public class caeserBreaker {
      return cc.encrypt(encrypted,26-dkey);
  }
  
- public int indexOfMaxEven(int [] values )
-	{ int i=0;
-	  int iMaxEven=i;
-	  
-	  int maxValueEven=values[i];
-	 
-	  for( i=0; i < values.length; i+=2){
-	    if(values[i]>maxValueEven)
-	    {
-	        maxValueEven=values[i];
-	        iMaxEven=i;
-	    }
-	 
-}
-	    return iMaxEven;
-	   }
-	  public int indexOfMaxOdd(int [] values )
-	   {
-	       int i=0;
-	       int iMaxOdd=i+1;
-	        int maxValueOdd=values[i+1];
-	           for( i=1; i < values.length; i+=2){
-	    if(values[i]>maxValueOdd)
-	    {
-	        maxValueOdd=values[i];
-	        iMaxOdd=i;
-	    }
-	    
-	}
-	return iMaxOdd;
-	   }
-
-	
+ public String StringBreaker(String encrypted)
+ {
+     caeserCipher cc = new caeserCipher();
+     System.out.println(encrypted);
+     encrypted=cc.encryptTwoKeys(encrypted,17,21);
+     StringBuilder odd = new StringBuilder();
+     StringBuilder even = new StringBuilder();
+     for(int i=0;i<encrypted.length();i++)
+     {
+         char currChar= encrypted.charAt(i);
+         if(i%2==0 && Character.isLetter(currChar))
+         {
+             even.append(encrypted.charAt(i));
+         }
+         if(i%2!=0 && Character.isLetter(currChar))
+         {
+             odd.append(encrypted.charAt(i));
+         }
+     }
+     System.out.println(encrypted);
+     System.out.println(even.toString());
+     System.out.println(odd.toString());
+     return even.toString();
+ }
+ 
+ public void TestStringBreaker()
+ {
+     FileResource fr = new FileResource();
+     String message =fr.asString();
+     StringBreaker(message);
+ }
+ 
  public String decryptTwoKeys(String encrypted)
  {
      caeserCipher cc = new caeserCipher();
      //separate the encrypted string into two parts
-     int [] freqs=countLetters(encrypted);
-     int maxDexEven=indexOfMaxEven(freqs);
-     int maxDexOdd=indexOfMaxOdd(freqs);
+
+     int [] freqsEven=countLetters(StringBreaker(encrypted));
+     int [] freqsOdd=countLetters(StringBreaker(encrypted));
+     int maxDexEven=indexOfMax(freqsEven);
+     int maxDexOdd=indexOfMax(freqsOdd);
+     
      //considering e is the most common word
      int dkey1=maxDexEven-4;
      if(maxDexEven<4)
